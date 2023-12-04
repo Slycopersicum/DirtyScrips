@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for f in `ls -1 *_1.fastq.gz | sed 's/_1.fastq.gz//' `
+do
+    cutadapt -j 12 -a 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCA' -A 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT' -o ${f}_1.fastq -p ${f}_2.fastq ${f}_1.fastq.gz ${f}_2.fastq.gz
+
+done

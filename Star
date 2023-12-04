@@ -1,0 +1,13 @@
+#!/bin/bash
+
+for f in `ls -1 RNAseq/*_1.fastq.gz | sed 's/_1.fastq.gz//' `
+do
+    STAR-2.7.11a/bin/Linux_x86_64/STAR --runThreadN 18 \
+    --outFileNamePrefix ${f} \
+    --genomeDir R/ --readFilesCommand zcat \
+    --sjdbGTFfile RNAseq/ITAG4.1_gene_models.gff \
+    --readFilesIn ${f}_1.fastq.gz ${f}_2.fastq.gz \
+    --sjdbGTFfeatureExon exon --sjdbGTFtagExonParentTranscript ID --sjdbGTFtagExonParentGene Parent \
+    --quantMode TranscriptomeSAM GeneCounts  \
+    --outSAMtype BAM SortedByCoordinate
+done
